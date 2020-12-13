@@ -51,8 +51,9 @@ func main() {
 
 	sum = 0
 	left = 0
-	middle := 1
 	right = len(numbers) - 1
+
+	var middle int
 
 	for middle = left + 1; middle < right-1; middle++ {
 		for left < right {
