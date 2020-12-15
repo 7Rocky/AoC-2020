@@ -7,14 +7,14 @@ import (
 )
 
 const (
-	rightDir        = false
-	leftDir         = true
-	upDir           = false
-	downDir         = true
-	mainDiagUpDir   = true
-	mainDiagDownDir = false
-	antiDiagUpDir   = false
-	antiDiagDownDir = true
+	left int = iota
+	right
+	up
+	down
+	mainDiagUp
+	mainDiagDown
+	antiDiagUp
+	antiDiagDown
 )
 
 func adjacentSeats(seats [][]byte, i, j int) []byte {
@@ -96,11 +96,12 @@ func adjacentSeats(seats [][]byte, i, j int) []byte {
 		seats[i+1][j-1])
 }
 
-func visibleSeatsXDirection(seats [][]byte, i, j int, left bool) byte {
-	columns := len(seats[0])
+func visibleSeatsDirection(seats [][]byte, i, j, dir int) byte {
+	rows, columns := len(seats), len(seats[0])
 	p := 1
 
-	if left {
+	switch dir {
+	case left:
 		for j-p >= 0 && seats[i][j-p] == '.' {
 			p++
 		}
@@ -108,7 +109,7 @@ func visibleSeatsXDirection(seats [][]byte, i, j int, left bool) byte {
 		if j-p >= 0 {
 			return seats[i][j-p]
 		}
-	} else {
+	case right:
 		for j+p < columns && seats[i][j+p] == '.' {
 			p++
 		}
@@ -116,80 +117,53 @@ func visibleSeatsXDirection(seats [][]byte, i, j int, left bool) byte {
 		if j+p < columns {
 			return seats[i][j+p]
 		}
-	}
-
-	return '.'
-}
-
-func visibleSeatsYDirection(seats [][]byte, i, j int, down bool) byte {
-	rows := len(seats)
-	q := 1
-
-	if down {
-		for i+q < rows && seats[i+q][j] == '.' {
-			q++
+	case up:
+		for i-p >= 0 && seats[i-p][j] == '.' {
+			p++
 		}
 
-		if i+q < rows {
-			return seats[i+q][j]
+		if i-p >= 0 {
+			return seats[i-p][j]
 		}
-	} else {
-		for i-q >= 0 && seats[i-q][j] == '.' {
-			q++
-		}
-
-		if i-q >= 0 {
-			return seats[i-q][j]
-		}
-	}
-
-	return '.'
-}
-
-func visibleSeatsAntiDiagDirection(seats [][]byte, i, j int, antiDiagDown bool) byte {
-	rows, columns := len(seats), len(seats[0])
-	r := 1
-
-	if antiDiagDown {
-		for i+r < rows && j-r >= 0 && seats[i+r][j-r] == '.' {
-			r++
+	case down:
+		for i+p < rows && seats[i+p][j] == '.' {
+			p++
 		}
 
-		if i+r < rows && j-r >= 0 {
-			return seats[i+r][j-r]
+		if i+p < rows {
+			return seats[i+p][j]
 		}
-	} else {
-		for i-r >= 0 && j+r < columns && seats[i-r][j+r] == '.' {
-			r++
-		}
-
-		if i-r >= 0 && j+r < columns {
-			return seats[i-r][j+r]
-		}
-	}
-
-	return '.'
-}
-
-func visibleSeatsMainDiagDirection(seats [][]byte, i, j int, mainDiagUp bool) byte {
-	rows, columns := len(seats), len(seats[0])
-	s := 1
-
-	if mainDiagUp {
-		for i-s >= 0 && j-s >= 0 && seats[i-s][j-s] == '.' {
-			s++
+	case mainDiagUp:
+		for i-p >= 0 && j-p >= 0 && seats[i-p][j-p] == '.' {
+			p++
 		}
 
-		if i-s >= 0 && j-s >= 0 {
-			return seats[i-s][j-s]
+		if i-p >= 0 && j-p >= 0 {
+			return seats[i-p][j-p]
 		}
-	} else {
-		for i+s < rows && j+s < columns && seats[i+s][j+s] == '.' {
-			s++
+	case mainDiagDown:
+		for i+p < rows && j+p < columns && seats[i+p][j+p] == '.' {
+			p++
 		}
 
-		if i+s < rows && j+s < columns {
-			return seats[i+s][j+s]
+		if i+p < rows && j+p < columns {
+			return seats[i+p][j+p]
+		}
+	case antiDiagUp:
+		for i-p >= 0 && j+p < columns && seats[i-p][j+p] == '.' {
+			p++
+		}
+
+		if i-p >= 0 && j+p < columns {
+			return seats[i-p][j+p]
+		}
+	case antiDiagDown:
+		for i+p < rows && j-p >= 0 && seats[i+p][j-p] == '.' {
+			p++
+		}
+
+		if i+p < rows && j-p >= 0 {
+			return seats[i+p][j-p]
 		}
 	}
 
@@ -202,77 +176,77 @@ func visibleSeats(seats [][]byte, i, j int) []byte {
 
 	if i == 0 && j == 0 {
 		return append(visible,
-			visibleSeatsXDirection(seats, 0, 0, rightDir),
-			visibleSeatsYDirection(seats, 0, 0, downDir),
-			visibleSeatsMainDiagDirection(seats, 0, 0, mainDiagDownDir))
+			visibleSeatsDirection(seats, 0, 0, right),
+			visibleSeatsDirection(seats, 0, 0, down),
+			visibleSeatsDirection(seats, 0, 0, mainDiagDown))
 	}
 
 	if i == 0 && j == columns-1 {
 		return append(visible,
-			visibleSeatsXDirection(seats, 0, columns-1, leftDir),
-			visibleSeatsYDirection(seats, 0, columns-1, downDir),
-			visibleSeatsAntiDiagDirection(seats, 0, columns-1, antiDiagDownDir))
+			visibleSeatsDirection(seats, 0, columns-1, left),
+			visibleSeatsDirection(seats, 0, columns-1, down),
+			visibleSeatsDirection(seats, 0, columns-1, antiDiagDown))
 	}
 
 	if i == 0 {
 		return append(visible,
-			visibleSeatsXDirection(seats, 0, j, leftDir),
-			visibleSeatsXDirection(seats, 0, j, rightDir),
-			visibleSeatsYDirection(seats, 0, j, downDir),
-			visibleSeatsMainDiagDirection(seats, 0, j, mainDiagDownDir),
-			visibleSeatsAntiDiagDirection(seats, 0, j, antiDiagDownDir))
+			visibleSeatsDirection(seats, 0, j, left),
+			visibleSeatsDirection(seats, 0, j, right),
+			visibleSeatsDirection(seats, 0, j, down),
+			visibleSeatsDirection(seats, 0, j, mainDiagDown),
+			visibleSeatsDirection(seats, 0, j, antiDiagDown))
 	}
 
 	if i == rows-1 && j == 0 {
 		return append(visible,
-			visibleSeatsXDirection(seats, rows-1, 0, rightDir),
-			visibleSeatsYDirection(seats, rows-1, 0, upDir),
-			visibleSeatsAntiDiagDirection(seats, rows-1, 0, antiDiagUpDir))
+			visibleSeatsDirection(seats, rows-1, 0, right),
+			visibleSeatsDirection(seats, rows-1, 0, up),
+			visibleSeatsDirection(seats, rows-1, 0, antiDiagUp))
 	}
 
 	if i == rows-1 && j == columns-1 {
 		return append(visible,
-			visibleSeatsXDirection(seats, rows-1, columns-1, leftDir),
-			visibleSeatsYDirection(seats, rows-1, columns-1, upDir),
-			visibleSeatsMainDiagDirection(seats, rows-1, columns-1, mainDiagUpDir))
+			visibleSeatsDirection(seats, rows-1, columns-1, left),
+			visibleSeatsDirection(seats, rows-1, columns-1, up),
+			visibleSeatsDirection(seats, rows-1, columns-1, mainDiagUp))
 	}
 
 	if i == rows-1 {
 		return append(visible,
-			visibleSeatsXDirection(seats, rows-1, j, leftDir),
-			visibleSeatsXDirection(seats, rows-1, j, rightDir),
-			visibleSeatsYDirection(seats, rows-1, j, upDir),
-			visibleSeatsMainDiagDirection(seats, rows-1, j, mainDiagUpDir),
-			visibleSeatsAntiDiagDirection(seats, rows-1, j, antiDiagUpDir))
+			visibleSeatsDirection(seats, rows-1, j, left),
+			visibleSeatsDirection(seats, rows-1, j, right),
+			visibleSeatsDirection(seats, rows-1, j, up),
+			visibleSeatsDirection(seats, rows-1, j, mainDiagUp),
+			visibleSeatsDirection(seats, rows-1, j, antiDiagUp))
 	}
 
 	if j == 0 {
 		return append(visible,
-			visibleSeatsXDirection(seats, i, 0, rightDir),
-			visibleSeatsYDirection(seats, i, 0, downDir),
-			visibleSeatsYDirection(seats, i, 0, upDir),
-			visibleSeatsMainDiagDirection(seats, i, 0, mainDiagDownDir),
-			visibleSeatsAntiDiagDirection(seats, i, 0, antiDiagUpDir))
+			visibleSeatsDirection(seats, i, 0, right),
+			visibleSeatsDirection(seats, i, 0, down),
+			visibleSeatsDirection(seats, i, 0, up),
+			visibleSeatsDirection(seats, i, 0, mainDiagDown),
+			visibleSeatsDirection(seats, i, 0, antiDiagUp))
 	}
 
 	if j == columns-1 {
 		return append(visible,
-			visibleSeatsXDirection(seats, i, columns-1, leftDir),
-			visibleSeatsYDirection(seats, i, columns-1, downDir),
-			visibleSeatsYDirection(seats, i, columns-1, upDir),
-			visibleSeatsMainDiagDirection(seats, i, columns-1, mainDiagUpDir),
-			visibleSeatsAntiDiagDirection(seats, i, columns-1, antiDiagDownDir))
+			visibleSeatsDirection(seats, i, columns-1, left),
+			visibleSeatsDirection(seats, i, columns-1, down),
+			visibleSeatsDirection(seats, i, columns-1, up),
+			visibleSeatsDirection(seats, i, columns-1, mainDiagUp),
+			visibleSeatsDirection(seats, i, columns-1, antiDiagDown))
 	}
 
 	return append(visible,
-		visibleSeatsXDirection(seats, i, j, rightDir),
-		visibleSeatsXDirection(seats, i, j, leftDir),
-		visibleSeatsYDirection(seats, i, j, downDir),
-		visibleSeatsYDirection(seats, i, j, upDir),
-		visibleSeatsMainDiagDirection(seats, i, j, mainDiagUpDir),
-		visibleSeatsMainDiagDirection(seats, i, j, mainDiagDownDir),
-		visibleSeatsAntiDiagDirection(seats, i, j, antiDiagUpDir),
-		visibleSeatsAntiDiagDirection(seats, i, j, antiDiagDownDir))
+		visibleSeatsDirection(seats, i, j, right),
+		visibleSeatsDirection(seats, i, j, left),
+		visibleSeatsDirection(seats, i, j, down),
+		visibleSeatsDirection(seats, i, j, up),
+		visibleSeatsDirection(seats, i, j, mainDiagUp),
+		visibleSeatsDirection(seats, i, j, mainDiagDown),
+		visibleSeatsDirection(seats, i, j, antiDiagUp),
+		visibleSeatsDirection(seats, i, j, antiDiagDown))
 }
 
 func countOcurrences(str []byte, char byte) int {
