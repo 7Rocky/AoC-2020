@@ -15,16 +15,16 @@ type groupResponse struct {
 
 func unique(str []byte) string {
 	keys := make(map[byte]bool)
-	list := []byte{}
+	list := ""
 
 	for _, entry := range str {
 		if _, value := keys[entry]; !value {
 			keys[entry] = true
-			list = append(list, entry)
+			list += string(entry)
 		}
 	}
 
-	return string(list)
+	return list
 }
 
 func common(answers []string) string {
@@ -80,7 +80,7 @@ func main() {
 	for scanner.Scan() {
 		line := scanner.Text()
 
-		if line != string("") {
+		if line != "" {
 			answers += line + " "
 			people++
 		} else {
@@ -105,7 +105,7 @@ func main() {
 	var numCommonAnswers []int
 
 	for _, g := range groups {
-		commonAnswers := string(common(g.answers))
+		commonAnswers := common(g.answers)
 		numCommonAnswers = append(numCommonAnswers, len(commonAnswers))
 	}
 
