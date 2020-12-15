@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"bytes"
 	"fmt"
 	"os"
 )
@@ -307,15 +308,13 @@ func round(seats [][]byte, level int) [][]byte {
 }
 
 func areEqual(mat1, mat2 [][]byte) bool {
-	if len(mat1) != len(mat2) || len(mat1[0]) != len(mat2[0]) {
+	if len(mat1) != len(mat2) {
 		return false
 	}
 
-	for i, r1 := range mat1 {
-		for j, c1 := range r1 {
-			if c1 != mat2[i][j] {
-				return false
-			}
+	for i := range mat1 {
+		if !bytes.Equal(mat1[i], mat2[i]) {
+			return false
 		}
 	}
 
