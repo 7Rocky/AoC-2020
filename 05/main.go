@@ -13,20 +13,20 @@ func getSeatID(seat string) int {
 
 	rowsRange := []int{0, 127}
 
-	for _, r := range []byte(rows) {
-		if string(r) == "F" {
+	for _, r := range rows {
+		if r == 'F' {
 			rowsRange[1] = (rowsRange[1] + rowsRange[0]) / 2
-		} else if string(r) == "B" {
+		} else if r == 'B' {
 			rowsRange[0] = (rowsRange[1]+rowsRange[0])/2 + 1
 		}
 	}
 
 	columnsRange := []int{0, 7}
 
-	for _, c := range []byte(colums) {
-		if string(c) == "L" {
+	for _, c := range colums {
+		if c == 'L' {
 			columnsRange[1] = (columnsRange[1] + columnsRange[0]) / 2
-		} else if string(c) == "R" {
+		} else if c == 'R' {
 			columnsRange[0] = (columnsRange[1]+columnsRange[0])/2 + 1
 		}
 	}
