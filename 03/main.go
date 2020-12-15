@@ -10,14 +10,14 @@ func countTrees(treeMap []string, slope [2]int) int {
 	width := len(treeMap[0])
 	height := len(treeMap)
 
-	tree := "#"
+	var tree byte = '#'
 
 	position := [2]int{0, 0}
 
 	numTrees := 0
 
 	for position[1] < height {
-		if string(treeMap[position[1]][position[0]]) == tree {
+		if treeMap[position[1]][position[0]] == tree {
 			numTrees++
 		}
 
