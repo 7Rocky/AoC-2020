@@ -5,6 +5,7 @@ import (
 	"bytes"
 	"fmt"
 	"os"
+	"strings"
 )
 
 const (
@@ -250,18 +251,6 @@ func visibleSeats(seats [][]byte, i, j int) []byte {
 		visibleSeatsDirection(seats, i, j, antiDiagDown))
 }
 
-func countOcurrences(str []byte, char byte) int {
-	count := 0
-
-	for _, c := range str {
-		if c == char {
-			count++
-		}
-	}
-
-	return count
-}
-
 func round(seats [][]byte, level int) [][]byte {
 	seatsCopy := make([][]byte, len(seats))
 	copy(seatsCopy, seats)
@@ -280,7 +269,7 @@ func round(seats [][]byte, level int) [][]byte {
 
 			if level == 1 {
 				adjacent := adjacentSeats(seats, i, j)
-				ocurrences := countOcurrences(adjacent, '#')
+				ocurrences := strings.Count(string(adjacent), "#")
 
 				if row[j] == 'L' && ocurrences == 0 {
 					rowCopy[j] = '#'
@@ -291,7 +280,7 @@ func round(seats [][]byte, level int) [][]byte {
 				}
 			} else if level == 2 {
 				visible := visibleSeats(seats, i, j)
-				ocurrences := countOcurrences(visible, '#')
+				ocurrences := strings.Count(string(visible), "#")
 
 				if row[j] == 'L' && ocurrences == 0 {
 					rowCopy[j] = '#'
@@ -350,7 +339,7 @@ func main() {
 	occupiedSeats := 0
 
 	for _, r := range seats {
-		occupiedSeats += countOcurrences(r, '#')
+		occupiedSeats += strings.Count(string(r), "#")
 	}
 
 	fmt.Printf("Number of occupied seats when stabilized (1): %d\n", occupiedSeats)
@@ -366,7 +355,7 @@ func main() {
 	occupiedSeats = 0
 
 	for _, r := range seats {
-		occupiedSeats += countOcurrences(r, '#')
+		occupiedSeats += strings.Count(string(r), "#")
 	}
 
 	fmt.Printf("Number of occupied seats when stabilized (2): %d\n", occupiedSeats)
