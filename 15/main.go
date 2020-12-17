@@ -28,23 +28,9 @@ func next(numbers []int) int {
 	return result
 }
 
-func main() {
+func getIndex(finalLength int) int {
 	numbers := []int{9, 6, 0, 10, 18, 2, 1}
-
-	for i, n := range numbers {
-		lastIndeces[n] = append(lastIndeces[n], i)
-	}
-
 	initialLength := len(numbers)
-	finalLength := 2020
-
-	for i := initialLength; i < finalLength; i++ {
-		numbers = append(numbers, next(numbers))
-	}
-
-	fmt.Printf("2020th number spoken (1): %d\n", numbers[finalLength-1])
-
-	numbers = []int{9, 6, 0, 10, 18, 2, 1}
 
 	lastIndeces = map[int][]int{}
 
@@ -52,11 +38,14 @@ func main() {
 		lastIndeces[n] = append(lastIndeces[n], i)
 	}
 
-	finalLength = 30000000
-
 	for i := initialLength; i < finalLength; i++ {
 		numbers = append(numbers, next(numbers))
 	}
 
-	fmt.Printf("30000000th number spoken (2): %d\n", numbers[finalLength-1])
+	return numbers[finalLength-1]
+}
+
+func main() {
+	fmt.Printf("2020th number spoken (1): %d\n", getIndex(2020))
+	fmt.Printf("30000000th number spoken (2): %d\n", getIndex(30000000))
 }
