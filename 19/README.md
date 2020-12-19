@@ -59,7 +59,7 @@ aaaabbb
 
 Your goal is to determine **the number of messages that completely match rule `0`**. In the above example, `ababbb` and `abbbab` match, but `bababa`, `aaabbb`, and `aaaabbb` do not, producing the answer **`2`**. The whole message must match all of rule `0`; there can't be extra unmatched characters in the message. (For example, `aaaabbb` might appear to match rule `0` above, but it has an extra unmatched `b` on the end.)
 
-**How many messages completely match rule 0?**
+**How many messages completely match rule `0`?**
 
 To begin, [get your puzzle input](input.txt).
 
@@ -147,6 +147,6 @@ However, after updating rules `8` and `11`, a total of **`12`** messages match:
 - `aaaabbaabbaaaaaaabbbabbbaaabbaabaaa`
 - `aabbbbbaabbbaaaaaabbbbbababaaaaabbaaabba`
 
-**After updating rules `8` and `11`, how many messages completely match rule 0?**
+**After updating rules `8` and `11`, how many messages completely match rule `0`?**
 
 Although it hasn't changed, you can still [get your puzzle input](input.txt).
