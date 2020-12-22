@@ -94,7 +94,7 @@ func removeDuplicates() {
 	ingredientsChecked = append(ingredientsChecked, ingredient)
 }
 
-func getCanonicalDangerousIngredientList(allergens map[string][]string) string {
+func getCanonicalDangerousIngredientList() string {
 	var allergensList, ingredientsList []string
 
 	for all := range allergens {
@@ -165,5 +165,5 @@ func main() {
 	fmt.Printf("Number of times healthy ingredients appear (1): %d\n", count)
 
 	fmt.Print("Canonical dangerous ingredients list (2): ")
-	fmt.Println(getCanonicalDangerousIngredientList(allergens))
+	fmt.Println(getCanonicalDangerousIngredientList())
 }
