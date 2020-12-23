@@ -87,6 +87,6 @@ func main() {
 		}
 	}
 
-	fmt.Printf("Valid passports (1): %d / %d\n", numValid[0], len(passports))
-	fmt.Printf("Valid passports (2): %d / %d\n", numValid[1], len(passports))
+	fmt.Printf("Valid passports (1): %d\n", numValid[0])
+	fmt.Printf("Valid passports (2): %d\n", numValid[1])
 }
