@@ -39,39 +39,6 @@ var dirs = map[string]tile{
 	nw: {-1, 1},
 }
 
-func main() {
-	file, _ := os.Open("./input.txt")
-
-	defer file.Close()
-
-	scanner := bufio.NewScanner(file)
-
-	tiles := make(map[string]bool)
-
-	for scanner.Scan() {
-		rule := scanner.Text()
-		pTile := tile{0, 0}
-
-		for rule != "" {
-			for _, d := range directions {
-				if strings.HasPrefix(rule, d) {
-					pTile.x += dirs[d].x
-					pTile.y += dirs[d].y
-
-					if len(rule) == len(d) {
-						tiles[pTile.String()] = !tiles[pTile.String()]
-					}
-
-					rule = rule[len(d):]
-				}
-			}
-
-		}
-	}
-
-	processDays(tiles, 100)
-}
-
 func toPosition(position string) tile {
 	coord := strings.Split(position, ",")
 
@@ -130,4 +97,37 @@ func processDays(tiles map[string]bool, days int) {
 	}
 
 	fmt.Printf("Number of black tiles in day %d (2): %d\n", days, result)
+}
+
+func main() {
+	file, _ := os.Open("./input.txt")
+
+	defer file.Close()
+
+	scanner := bufio.NewScanner(file)
+
+	tiles := make(map[string]bool)
+
+	for scanner.Scan() {
+		rule := scanner.Text()
+		pTile := tile{0, 0}
+
+		for rule != "" {
+			for _, d := range directions {
+				if strings.HasPrefix(rule, d) {
+					pTile.x += dirs[d].x
+					pTile.y += dirs[d].y
+
+					if len(rule) == len(d) {
+						tiles[pTile.String()] = !tiles[pTile.String()]
+					}
+
+					rule = rule[len(d):]
+				}
+			}
+
+		}
+	}
+
+	processDays(tiles, 100)
 }
