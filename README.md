@@ -2,8 +2,6 @@
 
 Resolution of the problems in Go language:
 
-![image](https://commons.wikimedia.org/wiki/File:Go_Logo_Blue.svg)
-
 | Problem      | Title                   | Difficulty                     |
 | ------------ | ----------------------- | ------------------------------ |
 | [Day 01](01) | Report Repair           | :star:                         |
