@@ -21,7 +21,7 @@ Resolution of the problems in Go language:
 | [Day 15](15) | Rambunctious Recitation | :star::star:                   |
 | [Day 16](16) | Ticket Translation      | :star::star::star:             |
 | [Day 17](17) | Conway Cubes            | :star::star::star::star::star: |
-| [Day 18](18) | Operation Order         | :star::star:                   |
+| [Day 18](18) | Operation Order         | :star::star::star:             |
 | [Day 19](19) | Monster Messages        | :star::star::star:             |
 | [Day 20](20) | Jurassic Jigsaw         | :star::star::star::star::star: |
 | [Day 21](21) | Allergen Assessment     | :star::star::star:             |
