@@ -161,7 +161,7 @@ func gameRecursive(decks [2][]int, game int) (int, []int) {
 }
 
 func main() {
-	file, _ := os.Open("./input.txt")
+	file, _ := os.Open("input.txt")
 
 	defer file.Close()
 
