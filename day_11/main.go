@@ -311,7 +311,7 @@ func areEqual(mat1, mat2 [][]byte) bool {
 }
 
 func main() {
-	file, _ := os.Open("./input.txt")
+	file, _ := os.Open("input.txt")
 
 	defer file.Close()
 
