@@ -11,7 +11,7 @@ import (
 func main() {
 	target := 2020
 
-	file, _ := os.Open("./input.txt")
+	file, _ := os.Open("input.txt")
 
 	defer file.Close()
 
