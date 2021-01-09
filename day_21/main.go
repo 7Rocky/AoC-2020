@@ -111,7 +111,7 @@ func getCanonicalDangerousIngredientList() string {
 }
 
 func main() {
-	file, _ := os.Open("./input.txt")
+	file, _ := os.Open("input.txt")
 
 	defer file.Close()
 
@@ -144,7 +144,7 @@ func main() {
 		healthyIngredients = removeElement(ing[0], healthyIngredients)
 	}
 
-	file, _ = os.Open("./input.txt")
+	file, _ = os.Open("input.txt")
 
 	defer file.Close()
 
