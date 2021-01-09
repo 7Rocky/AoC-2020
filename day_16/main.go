@@ -108,7 +108,7 @@ func allMatchesLengthEquals(number int, columns map[int][]int) bool {
 }
 
 func main() {
-	file, _ := os.Open("./input.txt")
+	file, _ := os.Open("input.txt")
 
 	defer file.Close()
 
