@@ -8,8 +8,8 @@ cd AoC-2020/day_<number>
 go run main.go
 ```
 
-| Problem      | Title                   | Difficulty                     |
-| ------------ | ----------------------- | ------------------------------ |
+| Problem          | Title                   | Difficulty                     |
+| ---------------- | ----------------------- | ------------------------------ |
 | [Day 01](day_01) | Report Repair           | :star:                         |
 | [Day 02](day_02) | Password Philosophy     | :star::star:                   |
 | [Day 03](day_03) | Toboggan Trajectory     | :star::star:                   |
