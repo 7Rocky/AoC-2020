@@ -77,7 +77,7 @@ func getTotalInnerBags(bag string) int {
 }
 
 func main() {
-	file, _ := os.Open("./input.txt")
+	file, _ := os.Open("input.txt")
 
 	defer file.Close()
 
