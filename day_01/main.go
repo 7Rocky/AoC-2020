@@ -29,8 +29,7 @@ func main() {
 	})
 
 	sum := 0
-	left := 0
-	right := len(numbers) - 1
+	left, right := 0, len(numbers)-1
 
 	for sum != target {
 		sum = numbers[left] + numbers[right]
@@ -50,11 +49,11 @@ func main() {
 		numbers[left], numbers[right], product)
 
 	sum = 0
-	left = 0
-	right = len(numbers) - 1
+	left, right = 0, len(numbers)-1
 
 	var middle int
 
+mainLoop:
 	for middle = left + 1; middle < right-1; middle++ {
 		for left < right {
 			sum = numbers[left] + numbers[middle] + numbers[right]
@@ -68,12 +67,8 @@ func main() {
 			}
 
 			if sum == target {
-				break
+				break mainLoop
 			}
-		}
-
-		if sum == target {
-			break
 		}
 	}
 
