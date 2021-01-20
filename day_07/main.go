@@ -68,8 +68,8 @@ func getTotalInnerBags(bag string) int {
 
 		totalInnerBags += numSubbags
 
-		if getTotalInnerBags(b[2:]) != 0 {
-			totalInnerBags += numSubbags * getTotalInnerBags(b[2:])
+		if totalInnerSubbags := getTotalInnerBags(b[2:]); totalInnerSubbags != 0 {
+			totalInnerBags += numSubbags * totalInnerSubbags
 		}
 	}
 
@@ -97,8 +97,7 @@ func main() {
 				innerBags[i] = strings.TrimRight(b, "s")
 			}
 		} else if !strings.Contains(splitted[1], "no other bags") {
-			innerBags = []string{
-				strings.TrimRight(splitted[1], "s")}
+			innerBags = []string{strings.TrimRight(splitted[1], "s")}
 		}
 
 		shinyGoldStatus := notChecked
