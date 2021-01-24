@@ -57,7 +57,6 @@ func decimalToTernary(number, length int) []int {
 
 	for i := 0; i < length; i++ {
 		number, remainder = divmod(number, 3)
-		// The set for this approach is not {0, 1, 2}, but {1, 2, 3}
 		remainders[i] = remainder + 1
 	}
 
@@ -134,8 +133,8 @@ func main() {
 	diffs := getDifferences(numbers)
 	countDiffs := countOcurrences(diffs, []int{1, 3})
 
-	fmt.Printf("Number of 1-jolt differences multiplied by the number of 3-jolt differences (1): %d\n",
-		countDiffs[0]*countDiffs[1])
+	fmt.Print("Number of 1-jolt differences multiplied by the number of 3-jolt differences (1): ")
+	fmt.Println(countDiffs[0] * countDiffs[1])
 
 	numWays := 1
 
