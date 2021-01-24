@@ -9,9 +9,7 @@ import (
 )
 
 func isSumOfPreviousNumbers(number int, previousNumbers []int) bool {
-	sort.Slice(previousNumbers, func(i, j int) bool {
-		return previousNumbers[i] < previousNumbers[j]
-	})
+	sortSlice(previousNumbers)
 
 	left, right := 0, len(previousNumbers)-1
 
@@ -38,6 +36,12 @@ func sum(arr []int) int {
 	return sum
 }
 
+func sortSlice(arr []int) {
+	sort.Slice(arr, func(i, j int) bool {
+		return arr[i] < arr[j]
+	})
+}
+
 func findEncryptionWeakness(invalidNumber int, numbers []int) int {
 	left, right := 0, 2
 
@@ -50,9 +54,7 @@ func findEncryptionWeakness(invalidNumber int, numbers []int) int {
 		} else if sum(set) > invalidNumber {
 			left++
 		} else {
-			sort.Slice(set, func(i, j int) bool {
-				return set[i] < set[j]
-			})
+			sortSlice(set)
 
 			return set[0] + set[len(set)-1]
 		}
@@ -90,6 +92,5 @@ func main() {
 	}
 
 	fmt.Printf("Invalid number (1): %d\n", invalidNumber)
-
 	fmt.Printf("Encryption weakness (2): %d\n", findEncryptionWeakness(invalidNumber, numbers))
 }
