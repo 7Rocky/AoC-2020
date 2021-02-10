@@ -117,7 +117,7 @@ func main() {
 	numBlankLines := 0
 
 	var ranges []valueRange
-	var yourTicket ticket = ticket{[]int{}, []int{}}
+	var yourTicket ticket = ticket{values: []int{}, satisfiedConditions: []int{}}
 	var nearbyTickets []ticket
 	var fields []string
 
@@ -148,7 +148,7 @@ func main() {
 				min, _ := strconv.Atoi(rangeStr[0])
 				max, _ := strconv.Atoi(rangeStr[1])
 
-				ranges = append(ranges, valueRange{min, max})
+				ranges = append(ranges, valueRange{min: min, max: max})
 			}
 
 		case 1:
@@ -167,7 +167,7 @@ func main() {
 					values = append(values, n)
 				}
 
-				nearbyTickets = append(nearbyTickets, ticket{values, []int{}})
+				nearbyTickets = append(nearbyTickets, ticket{values: values, satisfiedConditions: []int{}})
 			}
 		}
 	}
