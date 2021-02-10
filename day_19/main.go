@@ -9,7 +9,7 @@ import (
 )
 
 func matchSimpleRules() map[int][]string {
-	matchedRules := map[int][]string{}
+	var matchedRules = map[int][]string{}
 
 	for _, r := range rules {
 		if strings.Contains(r, "\"") {
@@ -88,7 +88,7 @@ func main() {
 	for scanner.Scan() {
 		line := scanner.Text()
 
-		if line == "" {
+		if len(line) == 0 {
 			break
 		}
 
@@ -156,7 +156,7 @@ func main() {
 				}
 			}
 
-			if m == "" && num42 > num31 {
+			if len(m) == 0 && num42 > num31 {
 				numMatches++
 			}
 		}
