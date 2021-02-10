@@ -59,7 +59,7 @@ func main() {
 	for scanner.Scan() {
 		line := scanner.Text()
 
-		if line != "" {
+		if len(line) > 0 {
 			passport += line + " "
 		} else {
 			passports = append(passports, passport)
