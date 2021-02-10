@@ -8,8 +8,7 @@ import (
 )
 
 func getSeatID(seat string) int {
-	rows := seat[:7]
-	colums := seat[7:]
+	rows, colums := seat[:7], seat[7:]
 
 	rowsRange := []int{0, 127}
 
@@ -57,6 +56,7 @@ func main() {
 	for i, id := range ids {
 		if i > 0 && id != ids[i-1]+1 {
 			fmt.Printf("Missing ID (2): %d\n", id-1)
+			break
 		}
 	}
 }
