@@ -26,9 +26,9 @@ func main() {
 	scanner := bufio.NewScanner(file)
 
 	reMinimum := regexp.MustCompile(`^\d+`)
-	reMaximum := regexp.MustCompile(`\d+\s`)
+	reMaximum := regexp.MustCompile(`\d+ `)
 	reCharacter := regexp.MustCompile(`\D:`)
-	rePassword := regexp.MustCompile(`:\s\w+`)
+	rePassword := regexp.MustCompile(`: \w+`)
 
 	for scanner.Scan() {
 		line := scanner.Text()
@@ -38,7 +38,7 @@ func main() {
 		character := reCharacter.FindString(line)[0]
 		password := rePassword.FindString(line)[2:]
 
-		reqs = append(reqs, requirement{minimum, maximum, character, password})
+		reqs = append(reqs, requirement{minimum: minimum, maximum: maximum, character: character, password: password})
 	}
 
 	numValid := 0
