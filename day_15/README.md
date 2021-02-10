@@ -57,4 +57,4 @@ Impressed, the Elves issue you a challenge: determine the `30000000`th number sp
 
 Given your starting numbers, **what will be the `30000000`th number spoken?**
 
-Your puzzle input is still  **`9,6,0,10,18,2,1`**.
+Your puzzle input is still **`9,6,0,10,18,2,1`**.
