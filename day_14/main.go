@@ -9,7 +9,7 @@ import (
 	"strings"
 )
 
-const nBits int = 36
+const nBits = 36
 
 var mask string
 
@@ -51,10 +51,10 @@ func applyMask(number, level int) []int {
 		return []int{binToDec(bin)}
 	}
 
-	binStr := make([]byte, nBits)
+	var binStr []byte
 
 	for i := range mask {
-		binStr[i] = strconv.Itoa(bin[i])[0]
+		binStr = append(binStr, strconv.Itoa(bin[i])[0])
 
 		if mask[i] != '0' {
 			binStr[i] = mask[i]
@@ -65,10 +65,10 @@ func applyMask(number, level int) []int {
 }
 
 func getBinaryTruthTable(length int) [][]int {
-	truthTable := make([][]int, int(math.Pow(2, float64(length))))
+	var truthTable [][]int
 
-	for i := 0; i < len(truthTable); i++ {
-		truthTable[i] = decToBin(i, length)
+	for i := 0; i < int(math.Pow(2, float64(length))); i++ {
+		truthTable = append(truthTable, decToBin(i, length))
 	}
 
 	return truthTable
@@ -100,6 +100,16 @@ func findMaskCombinations(stream []byte) []int {
 	return combinations
 }
 
+func sum(mem map[int]int) int {
+	sum := 0
+
+	for _, m := range mem {
+		sum += m
+	}
+
+	return sum
+}
+
 func executeInstruction(instruction string) {
 	if strings.Contains(instruction, "mem") {
 		splitted := strings.Split(instruction, " = ")
@@ -129,19 +139,6 @@ func main() {
 		executeInstruction(scanner.Text())
 	}
 
-	sum := 0
-
-	for _, m := range mem1 {
-		sum += m
-	}
-
-	fmt.Printf("Sum of memory values (1): %d\n", sum)
-
-	sum = 0
-
-	for _, m := range mem2 {
-		sum += m
-	}
-
-	fmt.Printf("Sum of memory values (2): %d\n", sum)
+	fmt.Printf("Sum of memory values (1): %d\n", sum(mem1))
+	fmt.Printf("Sum of memory values (2): %d\n", sum(mem2))
 }
