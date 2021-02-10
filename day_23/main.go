@@ -72,27 +72,6 @@ func (l *list) moveAfter(e, mark *element) {
 	l.move(e, mark)
 }
 
-func printCups() {
-	c := cups.cupsList.front()
-
-	for i := 0; i < cups.cupsList.len; i++ {
-		if c.value == cups.currentCup.value {
-			fmt.Print("(")
-		}
-
-		fmt.Print(c.value)
-
-		if c.value == cups.currentCup.value {
-			fmt.Print(")")
-		}
-
-		fmt.Print(" ")
-		c = c.next
-	}
-
-	fmt.Println("")
-}
-
 func getLabels() string {
 	labels := ""
 
@@ -145,9 +124,6 @@ func move(length int) {
 		}
 	}
 
-	// fmt.Println("pick up:", picked1.value, picked2.value, picked3.value)
-	// fmt.Println("destination:", destination)
-
 	d := cups.cupsMap[destination]
 
 	cups.cupsList.moveAfter(picked3, d)
@@ -176,13 +152,9 @@ func main() {
 	cups = &cupsStruct{inputNumbersList, inputNumbersMap, inputNumbersList.front()}
 
 	for n := 0; n < moves; n++ {
-		// fmt.Printf("\n-- move %d --\n", n+1)
-		// printCups()
 		move(length)
 	}
 
-	// fmt.Println("\n-- final --")
-	// printCups()
 	fmt.Println("Labels (1):", getLabels())
 
 	moves = 10000000
@@ -209,14 +181,8 @@ func main() {
 	cups = &cupsStruct{inputNumbersList, inputNumbersMap, inputNumbersList.front()}
 
 	for n := 0; n < moves; n++ {
-		// fmt.Printf("\n-- move %d --\n", n+1)
-		// printCups()
 		move(length)
 	}
-
-	// fmt.Println("\n-- final --", cups.cupsList.len)
-
-	// printCups()
 
 	fmt.Println("Product of Star Cups Label (2):", prodStarCupsLabel())
 }
