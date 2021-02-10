@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"bytes"
 	"fmt"
 	"os"
 	"strings"
@@ -16,10 +17,10 @@ func initPocket1(centralSlice []string, iterations int) {
 	maxHeight := 1 + 2*iterations + 2
 
 	for i := -maxHeight / 2; i <= maxHeight/2; i++ {
-		span := [][]byte{}
+		var span [][]byte
 
 		for j := 0; j < maxSpan; j++ {
-			span = append(span, []byte(strings.Repeat(".", maxSpan)))
+			span = append(span, bytes.Repeat([]byte{'.'}, maxSpan))
 		}
 
 		pocket1[i] = span
@@ -35,10 +36,11 @@ func countActiveGrid1(grid [][]byte, x, y int) int {
 	length := len(grid)
 
 	if x > 0 && x < length-1 && y > 0 && y < length-1 {
-		return strings.Count(string(grid[y-1][x-1:x+2]), "#") +
-			strings.Count(string(grid[y+0][x-1:x+2]), "#") +
-			strings.Count(string(grid[y+1][x-1:x+2]), "#")
+		return bytes.Count(grid[y-1][x-1:x+2], []byte{'#'}) +
+			bytes.Count(grid[y+0][x-1:x+2], []byte{'#'}) +
+			bytes.Count(grid[y+1][x-1:x+2], []byte{'#'})
 	}
+
 	return 0
 }
 
@@ -64,10 +66,10 @@ func getMapCopy1() map[int][][]byte {
 	var nextPocket1 = map[int][][]byte{}
 
 	for z, grid := range pocket1 {
-		nextGrid := [][]byte{}
+		var nextGrid [][]byte
 
 		for _, row := range grid {
-			nextRow := []byte{}
+			var nextRow []byte
 
 			for x := range row {
 				nextRow = append(nextRow, row[x])
@@ -109,7 +111,7 @@ func countTotalActive1() int {
 
 	for _, grid := range pocket1 {
 		for _, row := range grid {
-			total += strings.Count(string(row), "#")
+			total += bytes.Count(row, []byte{'#'})
 		}
 	}
 
@@ -120,14 +122,15 @@ func initPocket2(centralSlice []string, iterations int) {
 	initialLength := len(centralSlice)
 	maxSpan := initialLength + 2*iterations + 16
 	maxHeight := 1 + 2*iterations + 16
+
 	for k := -maxHeight / 2; k <= maxHeight/2; k++ {
 		var volume = map[int][][]byte{}
 
 		for i := -maxHeight / 2; i <= maxHeight/2; i++ {
-			span := [][]byte{}
+			var span [][]byte
 
 			for j := 0; j < maxSpan; j++ {
-				span = append(span, []byte(strings.Repeat(".", maxSpan)))
+				span = append(span, bytes.Repeat([]byte{'.'}, maxSpan))
 			}
 
 			volume[i] = span
@@ -146,15 +149,15 @@ func countActiveGrid2(volume map[int][][]byte, x, y, z int) int {
 	length := len(volume)
 
 	if x > 0 && x < length-1 && y > 0 && y < length-1 && z > -length/2 && z < length/2 {
-		return strings.Count(string(volume[z-1][y-1][x-1:x+2]), "#") +
-			strings.Count(string(volume[z+0][y-1][x-1:x+2]), "#") +
-			strings.Count(string(volume[z+1][y-1][x-1:x+2]), "#") +
-			strings.Count(string(volume[z-1][y+0][x-1:x+2]), "#") +
-			strings.Count(string(volume[z+0][y+0][x-1:x+2]), "#") +
-			strings.Count(string(volume[z+1][y+0][x-1:x+2]), "#") +
-			strings.Count(string(volume[z-1][y+1][x-1:x+2]), "#") +
-			strings.Count(string(volume[z+0][y+1][x-1:x+2]), "#") +
-			strings.Count(string(volume[z+1][y+1][x-1:x+2]), "#")
+		return bytes.Count(volume[z-1][y-1][x-1:x+2], []byte{'#'}) +
+			bytes.Count(volume[z+0][y-1][x-1:x+2], []byte{'#'}) +
+			bytes.Count(volume[z+1][y-1][x-1:x+2], []byte{'#'}) +
+			bytes.Count(volume[z-1][y+0][x-1:x+2], []byte{'#'}) +
+			bytes.Count(volume[z+0][y+0][x-1:x+2], []byte{'#'}) +
+			bytes.Count(volume[z+1][y+0][x-1:x+2], []byte{'#'}) +
+			bytes.Count(volume[z-1][y+1][x-1:x+2], []byte{'#'}) +
+			bytes.Count(volume[z+0][y+1][x-1:x+2], []byte{'#'}) +
+			bytes.Count(volume[z+1][y+1][x-1:x+2], []byte{'#'})
 	}
 
 	return 0
@@ -182,13 +185,13 @@ func getMapCopy2() map[int]map[int][][]byte {
 	var nextPocket2 = map[int]map[int][][]byte{}
 
 	for w, volume := range pocket2 {
-		nextVolume := map[int][][]byte{}
+		var nextVolume = map[int][][]byte{}
 
 		for i, grid := range volume {
-			nextGrid := [][]byte{}
+			var nextGrid [][]byte
 
 			for _, row := range grid {
-				nextRow := []byte{}
+				var nextRow []byte
 
 				for x := range row {
 					nextRow = append(nextRow, row[x])
@@ -236,7 +239,7 @@ func countTotalActive2() int {
 	for _, volume := range pocket2 {
 		for _, grid := range volume {
 			for _, row := range grid {
-				total += strings.Count(string(row), "#")
+				total += bytes.Count(row, []byte{'#'})
 			}
 		}
 	}
