@@ -111,7 +111,7 @@ func findMostInnerParentheses(op string) (int, int) {
 }
 
 func evaluate(op string, level int) int {
-	for strings.Count(op, "(") != 0 {
+	for strings.Count(op, "(") > 0 {
 		opening, closing := findMostInnerParentheses(op)
 
 		partial := evaluateArithmetic(op[opening+1:closing], level)
