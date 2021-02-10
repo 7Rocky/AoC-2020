@@ -14,22 +14,21 @@ type groupResponse struct {
 }
 
 func unique(str []byte) string {
-	keys := make(map[byte]bool)
-	list := ""
+	var keys = map[byte]bool{}
+	var list []byte
 
 	for _, entry := range str {
 		if _, value := keys[entry]; !value {
 			keys[entry] = true
-			list += string(entry)
+			list = append(list, entry)
 		}
 	}
 
-	return list
+	return string(list)
 }
 
 func common(answers []string) string {
-	commonAnswers := ""
-	minlengthAnswer := ""
+	var commonAnswers, minlengthAnswer string
 	minLength := math.MaxInt32
 
 	for _, answer := range answers {
@@ -80,12 +79,12 @@ func main() {
 	for scanner.Scan() {
 		line := scanner.Text()
 
-		if line != "" {
+		if len(line) > 0 {
 			answers += line + " "
 			people++
 		} else {
 			answers = strings.Trim(answers, " ")
-			group := groupResponse{strings.Split(answers, " "), people}
+			group := groupResponse{answers: strings.Split(answers, " "), people: people}
 			groups = append(groups, group)
 			answers = ""
 			people = 0
