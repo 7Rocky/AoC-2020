@@ -43,13 +43,7 @@ func getRemainders(idsList []string) []int {
 	for i, id := range idsList {
 		if id != "x" {
 			idNumber, _ := strconv.Atoi(id)
-			rem := (idNumber - i) % idNumber
-
-			for rem < 0 {
-				rem += idNumber
-			}
-
-			rems = append(rems, rem)
+			rems = append(rems, (idNumber-i)%idNumber)
 		}
 	}
 
@@ -69,10 +63,6 @@ func prod(arr []int) int {
 func inv(n, m int) int {
 	a, _, _ := extendedGcd(n, m)
 
-	for a < 0 {
-		a += m
-	}
-
 	return a
 }
 
@@ -85,10 +75,6 @@ func next(rems, mods, partials []int) int {
 	}
 
 	next := (result * inv(prod(mods[:last]), mods[last])) % mods[last]
-
-	for next < 0 {
-		next += mods[last]
-	}
 
 	return next
 }
