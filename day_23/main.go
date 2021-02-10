@@ -149,7 +149,7 @@ func main() {
 	inputNumbersList.front().prev = inputNumbersList.back()
 	inputNumbersList.back().next = inputNumbersList.front()
 
-	cups = &cupsStruct{inputNumbersList, inputNumbersMap, inputNumbersList.front()}
+	cups = &cupsStruct{cupsList: inputNumbersList, cupsMap: inputNumbersMap, currentCup: inputNumbersList.front()}
 
 	for n := 0; n < moves; n++ {
 		move(length)
@@ -178,7 +178,7 @@ func main() {
 	inputNumbersList.front().prev = inputNumbersList.back()
 	inputNumbersList.back().next = inputNumbersList.front()
 
-	cups = &cupsStruct{inputNumbersList, inputNumbersMap, inputNumbersList.front()}
+	cups = &cupsStruct{cupsList: inputNumbersList, cupsMap: inputNumbersMap, currentCup: inputNumbersList.front()}
 
 	for n := 0; n < moves; n++ {
 		move(length)
