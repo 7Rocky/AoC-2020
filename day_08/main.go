@@ -15,8 +15,7 @@ type instruction struct {
 }
 
 func executeCode(code []instruction) (int, bool) {
-	acc := 0
-	i := 0
+	acc, i := 0, 0
 
 	for i < len(code) {
 		if code[i].visited {
@@ -62,7 +61,7 @@ func main() {
 		operation := strings.Split(line, " ")[0]
 		argument, _ := strconv.Atoi(strings.Split(line, " ")[1])
 
-		code = append(code, instruction{operation, argument, false})
+		code = append(code, instruction{operation: operation, argument: argument, visited: false})
 	}
 
 	modifiedCode := make([]instruction, len(code))
