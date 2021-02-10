@@ -31,12 +31,12 @@ const (
 var directions = []string{e, ne, se, w, sw, nw}
 
 var dirs = map[string]tile{
-	e:  {2, 0},
-	ne: {1, 1},
-	se: {1, -1},
-	w:  {-2, 0},
-	sw: {-1, -1},
-	nw: {-1, 1},
+	e:  {x: 2, y: 0},
+	ne: {x: 1, y: 1},
+	se: {x: 1, y: -1},
+	w:  {x: -2, y: 0},
+	sw: {x: -1, y: -1},
+	nw: {x: -1, y: 1},
 }
 
 func toPosition(position string) tile {
@@ -49,7 +49,7 @@ func toPosition(position string) tile {
 }
 
 func dailyFlip(tiles map[string]bool) map[string]bool {
-	blackNeighbours := make(map[string]int)
+	var blackNeighbours = map[string]int{}
 
 	for pos, color := range tiles {
 		if color == black {
@@ -62,7 +62,7 @@ func dailyFlip(tiles map[string]bool) map[string]bool {
 		}
 	}
 
-	newBlackTiles := make(map[string]bool)
+	var newBlackTiles = map[string]bool{}
 
 	for pos, count := range blackNeighbours {
 		if (tiles[pos] == black && !(count == 0 || count > 2)) || (tiles[pos] == white && count == 2) {
@@ -106,7 +106,7 @@ func main() {
 
 	scanner := bufio.NewScanner(file)
 
-	tiles := make(map[string]bool)
+	var tiles = map[string]bool{}
 
 	for scanner.Scan() {
 		rule := scanner.Text()
