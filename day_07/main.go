@@ -106,7 +106,7 @@ func main() {
 			shinyGoldStatus = containing
 		}
 
-		bags[bag] = &bagType{innerBags, 0, shinyGoldStatus}
+		bags[bag] = &bagType{innerBags: innerBags, totalInnerBags: 0, shinyGoldBagStatus: shinyGoldStatus}
 	}
 
 	for b := range bags {
