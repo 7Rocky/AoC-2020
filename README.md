@@ -25,7 +25,7 @@ make test
 | [Day 06](day_06) | Custom Customs          | :star::star:                   | :raised_eyebrow: |
 | [Day 07](day_07) | Handy Haversacks        | :star::star::star::star:       | :blue_heart:     |
 | [Day 08](day_08) | Handheld Halting        | :star::star:                   | :shrug:          |
-| [Day 09](day_09) | Encoding Error          | :star:                         | :shurg:          |
+| [Day 09](day_09) | Encoding Error          | :star:                         | :shrug:          |
 | [Day 10](day_10) | Adapter Array           | :star::star::star::star:       | :blue_heart:     |
 | [Day 11](day_11) | Seating System          | :star::star::star:             | :star_struck:    |
 | [Day 12](day_12) | Rain Risk               | :star::star:                   | :star_struck:    |
