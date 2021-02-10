@@ -81,7 +81,7 @@ func removeDuplicates() {
 		}
 	}
 
-	if ingredient == "" {
+	if len(ingredient) == 0 {
 		return
 	}
 
