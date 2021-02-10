@@ -10,13 +10,13 @@ import (
 )
 
 func reverse(str string) string {
-	rev := ""
+	var rev []rune
 
 	for _, b := range str {
-		rev = string(b) + rev
+		rev = append([]rune{b}, rev...)
 	}
 
-	return rev
+	return string(rev)
 }
 
 func flip(piece []string) []string {
@@ -30,16 +30,16 @@ func flip(piece []string) []string {
 }
 
 func rotate(piece []string) []string {
-	newPiece := make([]string, len(piece))
+	var newPiece []string
 
 	for i := 0; i < len(piece); i++ {
-		newRow := ""
+		var newRow []byte
 
 		for j := len(piece[0]) - 1; j >= 0; j-- {
-			newRow += string(piece[j][i])
+			newRow = append(newRow, piece[j][i])
 		}
 
-		newPiece[i] = newRow
+		newPiece = append(newPiece, string(newRow))
 	}
 
 	return newPiece
@@ -73,18 +73,17 @@ func orientate(piece []string, position int) []string {
 func getBorders(piece []string) []string {
 	var borders []string
 
-	rightBorder := ""
-	leftBorder := ""
+	var leftBorder, rightBorder []byte
 
 	for _, row := range piece {
-		rightBorder += string(row[len(row)-1])
-		leftBorder += string(row[0])
+		leftBorder = append(leftBorder, row[0])
+		rightBorder = append(rightBorder, row[len(row)-1])
 	}
 
 	return append(borders,
 		piece[0], reverse(piece[0]),
-		reverse(rightBorder), rightBorder,
-		piece[len(piece)-1], reverse(piece[len(piece)-1]), leftBorder, reverse(leftBorder))
+		reverse(string(rightBorder)), string(rightBorder),
+		piece[len(piece)-1], reverse(piece[len(piece)-1]), string(leftBorder), reverse(string(leftBorder)))
 }
 
 func matchBorders(border1, border2 []string) (int, int) {
@@ -134,8 +133,7 @@ func prod(arr []int) int {
 }
 
 func match(piece1, piece2 []string, orientation int) bool {
-	side1 := "1"
-	side2 := "2"
+	side1, side2 := "1", "2"
 
 	if orientation == 0 {
 		side1 = piece1[0]
@@ -180,30 +178,6 @@ func countOcurrences(piece []string, substr string) int {
 	return count
 }
 
-func printPiece(piece []string) {
-	for _, r := range piece {
-		fmt.Println(r)
-	}
-
-	fmt.Println("")
-}
-
-func printImage(image map[int][]string, length int) {
-	for n := 0; n < length; n++ {
-		for i := 0; i < len(image[0]); i++ {
-			for j := n * length; j < (n+1)*length; j++ {
-				if image[j] != nil {
-					fmt.Print(image[j][i] + " ")
-				}
-			}
-
-			fmt.Println("")
-		}
-
-		fmt.Println("")
-	}
-}
-
 func cutImageBorders(image map[int][]string, length int) []string {
 	var cuttedImage []string
 
@@ -225,22 +199,22 @@ func cutImageBorders(image map[int][]string, length int) []string {
 }
 
 func findMonsters(image []string) []string {
-	/*
-		Monster:
-				  #
-		#    ##    ##    ###
-		 #  #  #  #  #  #
-	*/
-
 	for n := 0; n < 8; n++ {
 		rimg := orientate(image, n)
 
 		for i := 1; i < len(image)-1; i++ {
 			for j := 0; j < len(image)-19; j++ {
-				if rimg[i][j] == '#' && string(rimg[i][j+5:j+7]) == "##" && string(rimg[i][j+11:j+13]) == "##" &&
-					string(rimg[i][j+17:j+20]) == "###" && rimg[i-1][j+18] == '#' && rimg[i+1][j+1] == '#' &&
-					rimg[i+1][j+4] == '#' && rimg[i+1][j+7] == '#' && rimg[i+1][j+10] == '#' &&
-					rimg[i+1][j+13] == '#' && rimg[i+1][j+16] == '#' {
+				if rimg[i][j] == '#' &&
+					string(rimg[i][j+5:j+7]) == "##" &&
+					string(rimg[i][j+11:j+13]) == "##" &&
+					string(rimg[i][j+17:j+20]) == "###" &&
+					rimg[i-1][j+18] == '#' &&
+					rimg[i+1][j+1] == '#' &&
+					rimg[i+1][j+4] == '#' &&
+					rimg[i+1][j+7] == '#' &&
+					rimg[i+1][j+10] == '#' &&
+					rimg[i+1][j+13] == '#' &&
+					rimg[i+1][j+16] == '#' {
 
 					row := []byte(rimg[i])
 					row[j] = 'O'
@@ -375,7 +349,7 @@ func main() {
 			for scanner.Scan() {
 				row := scanner.Text()
 
-				if row == "" {
+				if len(row) == 0 {
 					break
 				}
 
@@ -393,13 +367,10 @@ func main() {
 	fmt.Printf("Product of corner tiles (1): %d\n", prod(corners))
 
 	image := matchPieces(pieces, corners, numRows)
-	// printImage(image, numRows)
 
 	cuttedImage := cutImageBorders(image, numRows)
-	// printPiece(cuttedImage)
 
 	monstersImage := findMonsters(cuttedImage)
-	// printPiece(monstersImage)
 
 	fmt.Printf("Number of # in the monsters image (2): %d\n", countOcurrences(monstersImage, "#"))
 }
