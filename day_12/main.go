@@ -10,13 +10,13 @@ import (
 )
 
 const (
-	north   byte = 'N'
-	south   byte = 'S'
-	east    byte = 'E'
-	west    byte = 'W'
-	left    byte = 'L'
-	right   byte = 'R'
-	forward byte = 'F'
+	north   = 'N'
+	south   = 'S'
+	east    = 'E'
+	west    = 'W'
+	left    = 'L'
+	right   = 'R'
+	forward = 'F'
 )
 
 type instruction struct {
@@ -116,10 +116,10 @@ func main() {
 		instr := scanner.Text()
 		action := instr[0]
 		value, _ := strconv.Atoi(instr[1:])
-		instructions = append(instructions, instruction{action, value})
+		instructions = append(instructions, instruction{action: action, value: value})
 	}
 
-	ship := shipObject{[]int{0, 0}, east, waypoint{[]int{10, 1}}}
+	ship := shipObject{position: []int{0, 0}, direction: east, waypoint: waypoint{position: []int{10, 1}}}
 
 	for _, instr := range instructions {
 		ship = move(instr, ship, 1)
@@ -130,7 +130,7 @@ func main() {
 	fmt.Printf("Final Position: (%d, %d); Manhattan distance to origin (1): %d\n",
 		ship.position[0], ship.position[1], manhattanDistance)
 
-	ship = shipObject{[]int{0, 0}, east, waypoint{[]int{10, 1}}}
+	ship = shipObject{position: []int{0, 0}, direction: east, waypoint: waypoint{position: []int{10, 1}}}
 
 	for _, instr := range instructions {
 		ship = move(instr, ship, 2)
