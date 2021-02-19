@@ -51,9 +51,6 @@ func main() {
 	cardLoopSize := getLoopSize(subjectNumber, divisor, cardPublicKey)
 	doorLoopSize := getLoopSize(subjectNumber, divisor, doorPublicKey)
 
-	fmt.Println("Card loop size", cardLoopSize)
-	fmt.Println("Door loop size", doorLoopSize)
-
 	fmt.Println("Encryption key (1):", getEncryptionKey(cardPublicKey, divisor, doorLoopSize))
 	fmt.Println("Encryption key (1):", getEncryptionKey(doorPublicKey, divisor, cardLoopSize))
 }
