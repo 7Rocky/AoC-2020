@@ -17,9 +17,7 @@ func TestMain(t *testing.T) {
 	out, _ := ioutil.ReadAll(r)
 	os.Stdout = rescueStdout
 
-	want := "Card loop size 4412860\n" +
-		"Door loop size 5282490\n" +
-		"Encryption key (1): 6198540\n" +
+	want := "Encryption key (1): 6198540\n" +
 		"Encryption key (1): 6198540\n"
 
 	if string(out) != want {
