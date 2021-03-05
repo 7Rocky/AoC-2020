@@ -5,6 +5,7 @@ import (
 	"bytes"
 	"fmt"
 	"os"
+	"reflect"
 )
 
 const (
@@ -295,20 +296,6 @@ func round(seats [][]byte, level int) [][]byte {
 	return seatsCopy
 }
 
-func areEqual(mat1, mat2 [][]byte) bool {
-	if len(mat1) != len(mat2) {
-		return false
-	}
-
-	for i := range mat1 {
-		if !bytes.Equal(mat1[i], mat2[i]) {
-			return false
-		}
-	}
-
-	return true
-}
-
 func main() {
 	file, _ := os.Open("input.txt")
 
@@ -330,7 +317,7 @@ func main() {
 
 	seats = round(seats, 1)
 
-	for !areEqual(seatsCopy1, seats) {
+	for !reflect.DeepEqual(seatsCopy1, seats) {
 		copy(seatsCopy1, seats)
 		seats = round(seats, 1)
 	}
@@ -346,7 +333,7 @@ func main() {
 	copy(seats, seatsCopy2)
 	seats = round(seats, 2)
 
-	for !areEqual(seatsCopy2, seats) {
+	for !reflect.DeepEqual(seatsCopy2, seats) {
 		copy(seatsCopy2, seats)
 		seats = round(seats, 2)
 	}
